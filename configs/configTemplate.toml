@@ -1,0 +1,6 @@
+[paths]
+templatePath = "template.docx"
+outPath = "output.docx"
+
+[server]
+httpPort = "8080"
