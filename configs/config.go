@@ -6,12 +6,12 @@ import (
 )
 
 type config struct {
-	paths *struct {
-		templatePath string
-		outPath      string
+	Paths *struct {
+		TemplatePath string
+		OutPath      string
 	}
-	server *struct {
-		httpPort string
+	Server *struct {
+		HttpPort string
 	}
 }
 
@@ -19,9 +19,9 @@ func init() {
 	var configPath, configFile string
 
 	flag.StringVar(&configPath, "path", "configs", "Path to config file")
-	flag.StringVar(&configFile, "config", "config", "Name of config file")
+	flag.StringVar(&configFile, "config", "configTemplate", "Name of config file")
 	flag.StringVar(&configPath, "p", "configs", "Path to config file")
-	flag.StringVar(&configFile, "c", "config", "Name of config file")
+	flag.StringVar(&configFile, "c", "configTemplate", "Name of config file")
 	flag.Parse()
 
 	viper.AddConfigPath(configPath)
@@ -34,17 +34,17 @@ func init() {
 
 func NewConfig() *config {
 	return &config{
-		paths: &struct {
-			templatePath string
-			outPath      string
+		Paths: &struct {
+			TemplatePath string
+			OutPath      string
 		}{
-			templatePath: viper.GetString("paths.templatePath"),
-			outPath:      viper.GetString("paths.outPath"),
+			TemplatePath: viper.GetString("paths.templatePath"),
+			OutPath:      viper.GetString("paths.outPath"),
 		},
-		server: &struct {
-			httpPort string
+		Server: &struct {
+			HttpPort string
 		}{
-			httpPort: viper.GetString("server.httpPort"),
+			HttpPort: viper.GetString("server.httpPort"),
 		},
 	}
 }
