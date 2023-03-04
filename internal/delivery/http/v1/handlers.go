@@ -1,8 +1,11 @@
 package v1
 
 import (
+	"IntegrationLab1/internal/domain"
 	"IntegrationLab1/internal/service"
+	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/go-playground/validator/v10"
 	"net/http"
 )
 
@@ -16,17 +19,21 @@ func NewHandler(service *service.Service) *Handler {
 	}
 }
 
-type UserRequest struct {
-	FirstName string `json:"first-name" binding:"required"`
-	LastName  string `json:"last-name" binding:"required"`
-}
-
 func (h *Handler) SubmitCompletedDoc(c *gin.Context) {
-	var input UserRequest
+	var input domain.UserRequest
 
 	if err := c.BindJSON(&input); err != nil {
 		errorResponse(c, http.StatusBadRequest, err.Error())
 		return
+	}
+
+	// TODO: make separate func for validate
+	validate := validator.New()
+
+	err := validate.Struct(input)
+
+	if err != nil {
+		fmt.Printf("Err(s):\n%+v\n", err)
 	}
 
 	c.JSON(http.StatusOK, map[string]interface{}{
