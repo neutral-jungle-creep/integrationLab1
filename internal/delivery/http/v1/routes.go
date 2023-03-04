@@ -8,7 +8,7 @@ func (h Handler) InitRoutes() *gin.Engine {
 
 	doc := router.Group("/api/v1")
 	{
-		doc.POST("/get-doc", h.SubmitCompletedDoc)
+		doc.POST("/get-doc", h.submitCompletedDoc)
 	}
 
 	return router
