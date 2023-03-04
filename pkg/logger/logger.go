@@ -15,7 +15,7 @@ type logger struct {
 	*logrus.Entry
 }
 
-func NewLogger(e *logrus.Entry) *logger {
+func NewLogger() *logger {
 	return &logger{e}
 }
 
