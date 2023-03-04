@@ -1,6 +1,6 @@
 [paths]
-templatePath = "template.docx"
-outPath = "output.docx"
+templateFile = "docs/template.docx"
+outPath = "docs/output/"
 
 [server]
 httpPort = "8080"
