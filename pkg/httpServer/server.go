@@ -1,7 +1,6 @@
 package httpServer
 
 import (
-	"IntegrationLab1/pkg/logger"
 	"context"
 	"net/http"
 	"time"
@@ -15,10 +14,9 @@ const (
 
 type Server struct {
 	server *http.Server
-	log    *logger.Logger
 }
 
-func NewServer(handler http.Handler, log *logger.Logger, opts ...Option) *Server {
+func NewServer(handler http.Handler, opts ...Option) *Server {
 	s := &Server{
 		server: &http.Server{
 			Addr:         defaultAddr,
@@ -26,7 +24,6 @@ func NewServer(handler http.Handler, log *logger.Logger, opts ...Option) *Server
 			ReadTimeout:  defaultReadTimeout,
 			WriteTimeout: defaultWriteTimeout,
 		},
-		log: log,
 	}
 
 	for _, opt := range opts {
