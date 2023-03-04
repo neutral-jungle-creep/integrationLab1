@@ -11,12 +11,12 @@ import (
 
 var e *logrus.Entry
 
-type logger struct {
+type Logger struct {
 	*logrus.Entry
 }
 
-func NewLogger() *logger {
-	return &logger{e}
+func NewLogger() *Logger {
+	return &Logger{e}
 }
 
 func init() {
