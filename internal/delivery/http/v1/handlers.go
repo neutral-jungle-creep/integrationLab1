@@ -25,17 +25,27 @@ func NewHandler(service *service.Service, log *logger.Logger, valid *validator.V
 }
 
 func (h *Handler) submitCompletedDoc(c *gin.Context) {
-	var input domain.UserRequest
+	var input *domain.UserRequest
 
 	if err := c.BindJSON(&input); err != nil {
+		h.log.Error(err.Error())
 		errorResponse(c, http.StatusBadRequest, err.Error())
 		return
 	}
 
 	if err := h.validateUserRequest(input); err != nil {
-
+		h.log.Error(err.Error())
+		errorResponse(c, http.StatusBadRequest, err.Error())
+		return
 	}
 
+	if err := h.service.DocumentWrite(input); err != nil {
+		h.log.Error(err.Error())
+		errorResponse(c, http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	h.log.Info("result file was add to dir")
 	c.JSON(http.StatusOK, map[string]interface{}{
 		"ответ": "данные получены успешно",
 	})
@@ -45,7 +55,7 @@ func errorResponse(c *gin.Context, statusCode int, message string) {
 	c.AbortWithStatusJSON(statusCode, message)
 }
 
-func (h *Handler) validateUserRequest(input domain.UserRequest) error {
+func (h *Handler) validateUserRequest(input *domain.UserRequest) error {
 	if err := h.valid.Struct(input); err != nil {
 		return fmt.Errorf("Err(s):\n%+v\n", err)
 	}

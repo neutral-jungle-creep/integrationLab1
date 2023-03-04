@@ -5,7 +5,7 @@ import (
 	"github.com/spf13/viper"
 )
 
-type config struct {
+type Config struct {
 	Paths *struct {
 		TemplateFile string
 		OutPath      string
@@ -32,8 +32,8 @@ func init() {
 	}
 }
 
-func NewConfig() *config {
-	return &config{
+func NewConfig() *Config {
+	return &Config{
 		Paths: &struct {
 			TemplateFile string
 			OutPath      string
