@@ -1,14 +1,22 @@
 package v1
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/gin-gonic/contrib/static"
+	"github.com/gin-gonic/gin"
+)
 
-func (h Handler) InitRoutes() *gin.Engine {
+func (h *Handler) InitRoutes() *gin.Engine {
 	router := gin.New()
-	router.Static("/", "./frontend")
+	router.Use(static.Serve("/", static.LocalFile("./frontend", true)))
 
-	doc := router.Group("/api/v1")
+	apiV1 := router.Group("/api/v1")
 	{
-		doc.POST("/get-doc", h.submitCompletedDoc)
+		doc := apiV1.Group("/doc")
+		{
+			doc.POST("/get", h.submitCompletedDoc)
+			doc.GET("/download/:filename", h.getDocFile)
+
+		}
 	}
 
 	return router
