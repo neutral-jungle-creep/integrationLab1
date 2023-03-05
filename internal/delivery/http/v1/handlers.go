@@ -39,16 +39,15 @@ func (h *Handler) submitCompletedDoc(c *gin.Context) {
 		return
 	}
 
-	if err := h.service.DocumentWrite(input); err != nil {
+	fileName, err := h.service.DocumentWrite(input)
+	if err != nil {
 		h.log.Error(err.Error())
 		errorResponse(c, http.StatusInternalServerError, err.Error())
 		return
 	}
 
-	h.log.Info("result file was add to dir")
-	c.JSON(http.StatusOK, map[string]interface{}{
-		"ответ": "данные получены успешно",
-	})
+	h.log.Infof("result file %s was add to dir", fileName)
+	c.JSON(http.StatusOK, domain.Response{FileName: fileName})
 }
 
 func errorResponse(c *gin.Context, statusCode int, message string) {
@@ -60,4 +59,9 @@ func (h *Handler) validateUserRequest(input *domain.UserRequest) error {
 		return fmt.Errorf("Err(s):\n%+v\n", err)
 	}
 	return nil
+}
+
+func (h *Handler) getDocFile(c *gin.Context) {
+	filename := c.Param("filename")
+	c.File("./docs/output" + filename)
 }
