@@ -23,7 +23,7 @@ func NewWriteDocService(cfg *configs.Config) *writeDocService {
 }
 
 func (w *writeDocService) DocumentWrite(req *domain.UserRequest) (string, error) {
-	fileName := req.ClientMiddleName + "_" + time.Now().Format("02-01-2006_15_04_05")
+	fileName := req.ClientLastName + "_" + time.Now().Format("02-01-2006_15_04_05")
 
 	clientAndProviderData := docx.PlaceholderMap{
 		"client-first-name":   req.ClientFirstName,
