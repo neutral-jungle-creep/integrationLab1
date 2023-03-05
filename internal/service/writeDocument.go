@@ -5,10 +5,11 @@ import (
 	"IntegrationLab1/internal/domain"
 	"fmt"
 	"github.com/lukasjarosch/go-docx"
+	"time"
 )
 
 type DocumentWriter interface {
-	documentWrite(req *domain.UserRequest) error
+	DocumentWrite(req *domain.UserRequest) (string, error)
 }
 
 type writeDocService struct {
@@ -21,7 +22,9 @@ func NewWriteDocService(cfg *configs.Config) *writeDocService {
 	}
 }
 
-func (w *writeDocService) documentWrite(req *domain.UserRequest) error {
+func (w *writeDocService) DocumentWrite(req *domain.UserRequest) (string, error) {
+	fileName := req.ClientMiddleName + "_" + time.Now().Format("02-01-2006_15_04_05")
+
 	clientAndProviderData := docx.PlaceholderMap{
 		"client-first-name":   req.ClientFirstName,
 		"client-last-name":    req.ClientLastName,
@@ -42,18 +45,16 @@ func (w *writeDocService) documentWrite(req *domain.UserRequest) error {
 
 	doc, err := docx.Open(w.cfg.Paths.TemplateFile)
 	if err != nil {
-		return fmt.Errorf("open template file error: %s", err.Error())
+		return "", fmt.Errorf("open template file error: %s", err.Error())
 	}
 
-	err = doc.ReplaceAll(clientAndProviderData)
-	if err != nil {
-		return fmt.Errorf("replace all placeholders int template file error: %s", err.Error())
+	if err = doc.ReplaceAll(clientAndProviderData); err != nil {
+		return "", fmt.Errorf("replace all placeholders int template file error: %s", err.Error())
 	}
 
-	err = doc.WriteToFile(w.cfg.Paths.OutPath + "test.docx")
-	if err != nil {
-		return fmt.Errorf("write document to file error: %s", err.Error())
+	if err = doc.WriteToFile(w.cfg.Paths.OutPath + fileName + ".docx"); err != nil {
+		return "", fmt.Errorf("write document to file error: %s", err.Error())
 	}
 
-	return nil
+	return fileName, nil
 }
