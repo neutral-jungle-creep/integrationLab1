@@ -5,6 +5,7 @@ import (
 	"IntegrationLab1/internal/domain"
 	"fmt"
 	"github.com/lukasjarosch/go-docx"
+	"strings"
 	"time"
 )
 
@@ -23,38 +24,51 @@ func NewWriteDocService(cfg *configs.Config) *writeDocService {
 }
 
 func (w *writeDocService) DocumentWrite(req *domain.UserRequest) (string, error) {
-	fileName := req.ClientLastName + "_" + time.Now().Format("02-01-2006_15_04_05")
+	var templateFile = req.TemplateFile
+
+	fileName := getFileNameWithExtension(req.ClientFullName)
 
 	clientAndProviderData := docx.PlaceholderMap{
-		"client-first-name":   req.ClientFirstName,
-		"client-last-name":    req.ClientLastName,
-		"client-middle-name":  req.ClientMiddleName,
-		"client-company":      req.ClientCompany,
-		"client-phone-number": req.ClientPhoneNumber,
-		"client-email":        req.ClientEmail,
+		"client-full-name":         req.ClientFullName,
+		"client-phone-number":      req.ClientPhoneNumber,
+		"client-email":             req.ClientEmail,
+		"client-company":           req.ClientCompany,
+		"client-company-full-name": req.ClientCompanyFullName,
+		"client-company-inn-kpp":   req.ClientCompanyInnKpp,
+		"client-company-address":   req.ClientCompanyAddress,
 
-		"provider-first-name":   req.ProviderFirstName,
-		"provider-last-name":    req.ProviderLastName,
-		"provider-middle-name":  req.ProviderMiddleName,
-		"provider-company":      req.ProviderCompany,
-		"provider-phone-number": req.ProviderPhoneNumber,
-		"provider-email":        req.ProviderEmail,
+		"provider-full-name":         req.ProviderFullName,
+		"provider-phone-number":      req.ProviderPhoneNumber,
+		"provider-email":             req.ProviderEmail,
+		"provider-company":           req.ProviderCompany,
+		"provider-company-full-name": req.ProviderCompanyFullName,
+		"provider-company-inn-kpp":   req.ProviderCompanyInnKpp,
+		"provider-company-address":   req.ProviderCompanyAddress,
+
+		//"delivery-address": req.DeliveryAddress,
 	}
 
 	// TODO: add replace map for items in document. Parse array of structs "Item"
 
-	doc, err := docx.Open(w.cfg.Paths.TemplateFile)
+	doc, err := docx.Open(w.cfg.Paths.TemplatePath + templateFile)
 	if err != nil {
 		return "", fmt.Errorf("open template file error: %s", err.Error())
 	}
+	defer doc.Close()
 
 	if err = doc.ReplaceAll(clientAndProviderData); err != nil {
 		return "", fmt.Errorf("replace all placeholders int template file error: %s", err.Error())
 	}
 
-	if err = doc.WriteToFile(w.cfg.Paths.OutPath + fileName + ".docx"); err != nil {
+	if err = doc.WriteToFile(w.cfg.Paths.OutPath + fileName); err != nil {
 		return "", fmt.Errorf("write document to file error: %s", err.Error())
 	}
 
 	return fileName, nil
+}
+
+func getFileNameWithExtension(clientFullName string) string {
+	var formatName = strings.Join(strings.Split(clientFullName, " "), "_")
+	var formatData = time.Now().Format("02_01_2006_15_04_05")
+	return formatName + "_" + formatData + ".docx"
 }
