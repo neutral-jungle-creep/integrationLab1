@@ -2,6 +2,7 @@ const form = document.getElementById("form");
 const addButton = document.getElementById("addButton");
 const itemsForm = document.getElementById("collapseItem");
 const errorLabel = document.getElementById("error-label");
+const checkForm = document.getElementById("form-check")
 
 const urlGetDoc = "/api/v1/doc/get";
 const urlDownloadDoc = "/api/v1/doc/download/";
@@ -42,13 +43,17 @@ function createItemRow(number) {
 
 form.addEventListener("submit", (event) => {
     event.preventDefault();
+    const filePath = getCheckboxValue()
+
+    console.log(filePath)
 
     if (validation(form)) {
         errorLabel.textContent = "";
-        newDocumentRequest();
+        newDocumentRequest(filePath);
     } else {
         errorLabel.textContent = "Необходимо заполнить все поля!";
     }
+
 })
 
 function validation(form) {
@@ -62,14 +67,23 @@ function validation(form) {
             input.classList.remove("error");
         }
     })
-
     return validRes;
 }
 
-function newDocumentRequest() {
-    const body = makeBody();
-    console.log(body);
+function getCheckboxValue() {
+    let path = ""
 
+    checkForm.querySelectorAll("input").forEach(input =>{
+        if (input.checked) {
+            path = input.value
+        }
+    })
+    return path
+}
+
+function newDocumentRequest(filePath) {
+    const body = makeBody(filePath);
+    console.log(body);
 
     async function sendFormData() {
         try {
@@ -90,11 +104,13 @@ function newDocumentRequest() {
     sendFormData()
 }
 
-function makeBody() {
+function makeBody(filePath) {
     const formData = new FormData(form);
     console.log(formData.get("clientFullName"));
 
     return {
+        templateFile: filePath,
+
         clientFullName: formData.get("clientFullName"),
         clientPhoneNumber: formData.get("clientPhoneNumber"),
         clientEmail: formData.get("clientEmail"),
