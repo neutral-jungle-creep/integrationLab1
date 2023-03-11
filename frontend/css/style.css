@@ -1,5 +1,16 @@
-.my-btn {
+.btn-tg {
     font-size: 25px;
+    border: 0;
+}
+
+.btn-git {
+    font-size: 28px;
+    border: 0;
+    padding: 3px 12px;
+}
+
+.btn-tg:hover, .btn-git:hover {
+    color: #798587;
 }
 
 .error {
@@ -8,4 +19,14 @@
 
 .error-label {
     color: red;
+}
+
+.main-text {
+    font-size: 35px;
+    color: white;
+}
+
+p {
+    text-indent: 20px;
+    text-align: justify;
 }
