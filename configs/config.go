@@ -7,7 +7,7 @@ import (
 
 type Config struct {
 	Paths *struct {
-		TemplateFile string
+		TemplatePath string
 		OutPath      string
 	}
 	Server *struct {
@@ -35,10 +35,10 @@ func init() {
 func NewConfig() *Config {
 	return &Config{
 		Paths: &struct {
-			TemplateFile string
+			TemplatePath string
 			OutPath      string
 		}{
-			TemplateFile: viper.GetString("paths.templateFile"),
+			TemplatePath: viper.GetString("paths.templatePath"),
 			OutPath:      viper.GetString("paths.outPath"),
 		},
 		Server: &struct {
