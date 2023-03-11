@@ -8,72 +8,34 @@ addButton.addEventListener("click", () => {
     const addItem = document.getElementById("add");
 
     let num = parent.getElementsByClassName("row").length;
-    const newItem = createItemRow(num);
-    parent.insertBefore(newItem, addItem);
+    document.getElementById("inp" + (num-1)).innerHTML = createItemCols(num);
+    parent.insertBefore(createItemRow(num), addItem)
 })
 
+function createItemCols(number) {
+     return  '<div class="col-md-1 col-sm-12 col-xs-12 mt-1" id="del">' +
+        '<button class="btn btn-outline-secondary icon-minus" id="delButton" type="button"></button>' +
+        '</div>' +
+        '<div class="col-md-2 col-sm-12 col-xs-12 mt-1">' +
+        '<input id="art' + (number) + '" class="form-control" type="text" name="art1" placeholder="Артикул">' +
+        '</div>' +
+        '<div class="col-md-4 col-sm-12 col-xs-12 mt-1">' +
+        '<input id="itemName1" class="form-control" type="text" name="itemName1" placeholder="Наименование">' +
+        '</div>' +
+        '<div class="col-md-2 col-sm-12 col-xs-12 mt-1">' +
+        '<input id="num1" class="form-control" type="text" name="num1" placeholder="Кол-во">' +
+        '</div>' +
+        '<div class="col-md-3 col-sm-12 col-xs-12 mt-1">' +
+        '<input id="cost1" class="form-control" type="text" name="cost1" placeholder="Цена 1шт.">' +
+        '</div>'
+
+}
+
 function createItemRow(number) {
-    const itemRow = document.createElement("div");
-
-    const itemCol1 = document.createElement("div");
-    const itemCol2 = document.createElement("div");
-    const itemCol3 = document.createElement("div");
-    const itemCol4 = document.createElement("div");
-
-    const colArray = [itemCol1, itemCol2, itemCol3, itemCol4]
-
-    const itemInput1 = document.createElement("input");
-    const itemInput2 = document.createElement("input");
-    const itemInput3 = document.createElement("input");
-    const itemInput4 = document.createElement("input");
-
-
-    itemRow.classList.add("row");
-
-    itemCol1.classList.add("col-md-2");
-    itemCol2.classList.add("col-md-5");
-    itemCol3.classList.add("col-md-2");
-    itemCol4.classList.add("col-md-3");
-
-    colArray.forEach(elem => {
-            elem.classList.add("col-sm-12")
-            elem.classList.add("col-xs-12")
-            elem.classList.add("mt-1")
-        }
-    )
-    itemInput1.classList.add("form-control");
-    itemInput2.classList.add("form-control");
-    itemInput3.classList.add("form-control");
-    itemInput4.classList.add("form-control");
-
-    itemInput1.type = "text";
-    itemInput2.type = "text";
-    itemInput3.type = "text";
-    itemInput4.type = "text";
-
-    itemInput1.id = "art" + number;
-    itemInput2.id = "itemName" + number;
-    itemInput3.id = "num" + number;
-    itemInput4.id = "cost" + number;
-
-    itemInput1.nodeName = "art" + number;
-    itemInput2.nodeName = "itemName" + number;
-    itemInput3.nodeName = "num" + number;
-    itemInput4.nodeName = "cost" + number;
-
-    itemInput1.placeholder = "Артикул";
-    itemInput2.placeholder = "Наименование";
-    itemInput3.placeholder = "Кол-во";
-    itemInput4.placeholder = "Цена 1шт.";
-
-    itemCol1.append(itemInput1)
-    itemCol2.append(itemInput2)
-    itemCol3.append(itemInput3)
-    itemCol4.append(itemInput4)
-
-    itemRow.append(itemCol1, itemCol2, itemCol3, itemCol4)
-
-    return itemRow
+    const inpRow = document.createElement("div")
+    inpRow.classList.add("row")
+    inpRow.id = "inp" + number
+    return inpRow
 }
 
 form.addEventListener("submit", (event) => {
