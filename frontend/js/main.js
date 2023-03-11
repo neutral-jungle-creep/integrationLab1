@@ -1,5 +1,6 @@
 const form = document.getElementById("form");
 const addButton = document.getElementById("addButton");
+const delButton = document.getElementById("delButton")
 const urlGetDoc = "/api/v1/doc/get";
 const urlDownloadDoc = "/api/v1/doc/download/";
 
@@ -8,25 +9,24 @@ addButton.addEventListener("click", () => {
     const addItem = document.getElementById("add");
 
     let num = parent.getElementsByClassName("row").length;
-    document.getElementById("inp" + (num-1)).innerHTML = createItemCols(num);
     parent.insertBefore(createItemRow(num), addItem)
+
+    document.getElementById("inp" + (num)).innerHTML = createItemCols(num);
 })
 
 function createItemCols(number) {
-     return  '<div class="col-md-1 col-sm-12 col-xs-12 mt-1" id="del">' +
-        '<button class="btn btn-outline-secondary icon-minus" id="delButton" type="button"></button>' +
-        '</div>' +
-        '<div class="col-md-2 col-sm-12 col-xs-12 mt-1">' +
+    // TODO add button for del item row
+     return  '<div class="col-md-2 col-sm-12 col-xs-12 mt-1">' +
         '<input id="art' + (number) + '" class="form-control" type="text" name="art1" placeholder="Артикул">' +
         '</div>' +
-        '<div class="col-md-4 col-sm-12 col-xs-12 mt-1">' +
-        '<input id="itemName1" class="form-control" type="text" name="itemName1" placeholder="Наименование">' +
+        '<div class="col-md-5 col-sm-12 col-xs-12 mt-1">' +
+        '<input id="itemName' + (number) + '" class="form-control" type="text" name="itemName1" placeholder="Наименование">' +
         '</div>' +
         '<div class="col-md-2 col-sm-12 col-xs-12 mt-1">' +
-        '<input id="num1" class="form-control" type="text" name="num1" placeholder="Кол-во">' +
+        '<input id="num' + (number) + '" class="form-control" type="text" name="num1" placeholder="Кол-во">' +
         '</div>' +
         '<div class="col-md-3 col-sm-12 col-xs-12 mt-1">' +
-        '<input id="cost1" class="form-control" type="text" name="cost1" placeholder="Цена 1шт.">' +
+        '<input id="cost' + (number) + '" class="form-control" type="text" name="cost1" placeholder="Цена 1шт.">' +
         '</div>'
 
 }
