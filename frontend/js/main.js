@@ -123,6 +123,7 @@ function makeBody(filePath) {
         providerPhoneNumber: formData.get("providerPhoneNumber"),
         providerEmail: formData.get("providerEmail"),
         providerCompany: formData.get("providerCompany"),
+        providerCompanyFullName: formData.get("providerCompanyFullName"),
         providerCompanyInnKpp: formData.get("providerCompanyInnKpp"),
         providerCompanyAddress: formData.get("providerCompanyAddress"),
 
