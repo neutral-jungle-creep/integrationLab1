@@ -1,84 +1,66 @@
 const form = document.getElementById("form");
+const templateForm = document.getElementById("form-check");
+const downloadMsg = document.getElementById("download-msg");
+
 const addButton = document.getElementById("addButton");
 const itemsForm = document.getElementById("collapseItem");
-const errorLabel = document.getElementById("error-label");
-const checkForm = document.getElementById("form-check")
 
 const urlGetDoc = "/api/v1/doc/get";
 const urlDownloadDoc = "/api/v1/doc/download/";
 
-addButton.addEventListener("click", () => {
-    const addItem = document.getElementById("add");
-
-    let num = itemsForm.getElementsByClassName("row").length - 1;
-    itemsForm.insertBefore(createItemRow(num), addItem);
-
-    document.getElementById("inp" + (num)).innerHTML = createItemCols(num);
-})
-
-function createItemCols(number) {
-    // TODO add button for del item row
-    return '<div class="col-md-2 col-sm-12 col-xs-12 mt-1">' +
-        '<input name="vendorCode' + (number) + '" class="form-control" type="text" placeholder="Артикул">' +
-        '</div>' +
-        '<div class="col-md-5 col-sm-12 col-xs-12 mt-1">' +
-        '<input name="itemName' + (number) + '" class="form-control" type="text" placeholder="Наименование">' +
-        '</div>' +
-        '<div class="col-md-2 col-sm-12 col-xs-12 mt-1">' +
-        '<input name="quantity' + (number) + '" class="form-control" type="text" placeholder="Кол-во">' +
-        '</div>' +
-        '<div class="col-md-3 col-sm-12 col-xs-12 mt-1">' +
-        '<input name="price' + (number) + '" class="form-control" type="text" placeholder="Цена 1шт.">' +
-        '</div>'
-
-}
-
-function createItemRow(number) {
-    const inpRow = document.createElement("div")
-    inpRow.classList.add("row")
-    inpRow.classList.add("input-item")
-    inpRow.id = "inp" + number
-    return inpRow
-}
 
 form.addEventListener("submit", (event) => {
     event.preventDefault();
-    const filePath = getCheckboxValue()
+    const filePath = getCheckboxValue();
 
-    console.log(filePath)
+    console.log(filePath);
 
     if (validation(form)) {
-        errorLabel.textContent = "";
+        downloadMsg.classList.remove("error-label");
+        downloadMsg.textContent = "";
         newDocumentRequest(filePath);
     } else {
-        errorLabel.textContent = "Необходимо заполнить все поля!";
+       showDownloadError("Необходимо заполнить все поля");
     }
-
 })
+
+function showDownloadError(msg) {
+    downloadMsg.classList.add("error-label");
+    downloadMsg.textContent = msg;
+}
+
+function getCheckboxValue() {
+    let path = "";
+
+    templateForm.querySelectorAll("input").forEach(input => {
+        if (input.checked) {
+            path = input.value;
+        }
+    })
+    return path;
+}
 
 function validation(form) {
     let validRes = true;
+    let inputs = form.getElementsByClassName("form-control");
 
-    form.querySelectorAll("input").forEach(input => {
+    for (let i = 0; i < inputs.length; i++) {
+        let input = inputs[i];
         if (input.value === "") {
             input.classList.add("error");
             validRes = false;
         } else {
             input.classList.remove("error");
         }
-    })
+    }
+
+    if (mapMsg.classList.contains("error-label") || deliveryAddr.value === "") {
+        deliveryAddr.classList.add("error");
+        validRes = false;
+    } else {
+        deliveryAddr.classList.remove("error");
+    }
     return validRes;
-}
-
-function getCheckboxValue() {
-    let path = ""
-
-    checkForm.querySelectorAll("input").forEach(input =>{
-        if (input.checked) {
-            path = input.value
-        }
-    })
-    return path
 }
 
 function newDocumentRequest(filePath) {
@@ -94,19 +76,20 @@ function newDocumentRequest(filePath) {
                 let res = await response.json()
                 downloadFile(res.fileName);
                 console.log(res.fileName);
+                downloadMsg.textContent = "Договор успешно сгенерирован"
             } else {
-                errorLabel.textContent = "Заполните поля формы корректными данными"
+                showDownloadError("Заполните поля формы корректными данными");
             }
         } catch (err) {
             console.log(err);
         }
     }
+
     sendFormData()
 }
 
 function makeBody(filePath) {
     const formData = new FormData(form);
-    console.log(formData.get("clientFullName"));
 
     return {
         templateFile: filePath,
@@ -144,7 +127,6 @@ function getItems(formData) {
             quantity: parseInt(formData.get("quantity" + i)),
             price: parseInt(formData.get("price" + i)),
         }
-        console.log( "item = ", items[i])
     }
     return items
 }
@@ -161,5 +143,36 @@ async function downloadFile(filename) {
 }
 
 
+addButton.addEventListener("click", () => {
+    const addItem = document.getElementById("add");
 
+    let num = itemsForm.getElementsByClassName("row").length - 1;
+    itemsForm.insertBefore(createItemRow(num), addItem);
 
+    document.getElementById("inp" + (num)).innerHTML = createItemCols(num);
+})
+
+function createItemCols(number) {
+    // TODO add button for del item row
+    return '<div class="col-md-2 col-sm-12 col-xs-12 mt-1">' +
+        '<input name="vendorCode' + (number) + '" class="form-control" type="text" placeholder="Артикул">' +
+        '</div>' +
+        '<div class="col-md-5 col-sm-12 col-xs-12 mt-1">' +
+        '<input name="itemName' + (number) + '" class="form-control" type="text" placeholder="Наименование">' +
+        '</div>' +
+        '<div class="col-md-2 col-sm-12 col-xs-12 mt-1">' +
+        '<input name="quantity' + (number) + '" class="form-control" type="number" placeholder="Кол-во">' +
+        '</div>' +
+        '<div class="col-md-3 col-sm-12 col-xs-12 mt-1">' +
+        '<input name="price' + (number) + '" class="form-control" type="number" placeholder="Цена 1шт.">' +
+        '</div>'
+
+}
+
+function createItemRow(number) {
+    const inpRow = document.createElement("div")
+    inpRow.classList.add("row")
+    inpRow.classList.add("input-item")
+    inpRow.id = "inp" + number
+    return inpRow
+}

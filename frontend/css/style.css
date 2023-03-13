@@ -1,3 +1,10 @@
+:root {
+    --color-gray: rgba(121, 133, 135, 0.72);
+    --color-white: rgba(238, 238, 238, 0.38);
+    --error-color: #dc3545;
+    --text-color: rgba(12, 12, 12, 0.76);
+}
+
 .btn-tg {
     font-size: 25px;
     border: 0;
@@ -10,23 +17,57 @@
 }
 
 .btn-tg:hover, .btn-git:hover {
-    color: #798587;
+    color: var(--color-gray);
 }
 
 .error {
-    border-color: red;
-}
-
-.error-label {
-    color: red;
+    border-color: var(--error-color);
 }
 
 .main-text {
     font-size: 35px;
-    color: white;
+    color: #eee;
 }
 
-p {
+p, h6, h4, h2, .accordion-button {
     text-indent: 20px;
     text-align: justify;
+    margin: 0;
+    color: var(--text-color);
+}
+
+.accordion-button {
+    padding-bottom: 10px;
+    padding-top: 10px;
+    background-color: var(--color-white);
+    color: var(--text-color);
+}
+
+.accordion-button:focus {
+    box-shadow: none;
+}
+
+.items {
+    display: none;
+}
+
+#items:checked~.l-2 {
+    display: block;
+}
+
+.note {
+    font-style: italic;
+    font-size: 15px;
+    text-align: center;
+    color: var(--color-gray);
+}
+
+.error-label {
+    color: var(--error-color);
+    font-size: 17px;
+}
+
+#map {
+    width: 90%;
+    height: 350px;
 }

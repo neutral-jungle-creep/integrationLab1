@@ -4,8 +4,8 @@ const defaultCenter = [55.76, 37.64];
 const defaultZoom = 11;
 
 const deliveryButton = document.getElementById("deliveryButton");
-const mapError = document.getElementById("map-error")
-
+const mapMsg = document.getElementById("map-msg")
+const deliveryAddr = document.getElementById("deliveryAddress");
 
 ymaps.ready(init);
 
@@ -19,7 +19,7 @@ function init() {
 }
 
 deliveryButton.addEventListener("click", () => {
-    const addr = document.getElementById("deliveryAddress").value;
+    const addr = deliveryAddr.value;
     console.log("адрес = ", addr);
 
     if (addr === "") {
@@ -30,7 +30,9 @@ deliveryButton.addEventListener("click", () => {
 })
 
 function showError(message) {
-    mapError.textContent = message;
+    deliveryAddr.classList.add("error");
+    mapMsg.classList.add("error-label");
+    mapMsg.textContent = message;
     map.setCenter(defaultCenter, defaultZoom);
 }
 
@@ -70,8 +72,9 @@ function geocode(addr) {
 }
 
 function showResult(obj) {
-    mapError.textContent = "Адрес подтвержден";
-    mapError.classList.add("note")
+    deliveryAddr.classList.remove("error");
+    mapMsg.classList.remove("error-label");
+    mapMsg.textContent = "Адрес подтвержден";
 
     let mapState = ymaps.util.bounds.getCenterAndZoom(
         obj.properties.get('boundedBy'),

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="icon" href="favicon.png">
     <title>BtoBDoc</title>
     <link href="css/fontello.css" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -22,92 +23,102 @@
     <form action="POST" id="form">
         <div class="row">
             <h2 class="text-center my-3">Заполните форму для получения договора</h2>
-            <p>Для того, чтобы сформировать договор на поставку товара фирме А от фирмы Б,</p><br><p>внесите актуальные
+            <p class="note">Для того, чтобы сформировать договор на поставку товара фирме А от фирмы Б, внесите
+                актуальные
                 данные о клиенте и поставщике в соответствующие поля. </p>
-                <div class="col-md-6 col-sm-12 col-xs-12">
-                    <h6 class="my-2">Клиент</h6>
-                    <input id="clientFullName" class="form-control fullname" type="text"
-                           name="clientFullName" placeholder="ФИО">
-                    <input id="clientPhoneNumber" class="form-control mt-2" type="tel"
-                           name="clientPhoneNumber" placeholder="+7 (800) 800-80-80">
-                    <input id="clientEmail" class="form-control mt-2 email" type="email" name="clientEmail"
-                           placeholder="Электронная почта">
-                    <input id="clientCompany" class="form-control mt-2 c-party" type="text"
-                           name="clientCompany" placeholder="Название организации">
-                    <input id="clientCompanyFullName" class="form-control mt-2 c-name-full" type="text"
-                           name="clientCompanyFullName" placeholder="Полное наименование">
-                    <input id="clientCompanyInnKpp" class="form-control mt-2 c-inn-kpp" type="text"
-                           name="clientCompanyInnKpp" placeholder="ИНН / КПП">
-                    <input id="clientCompanyAddress" class="form-control mt-2 c-company-address" type="text"
-                           name="clientCompanyAddress" placeholder="Адрес">
-                </div>
-                <div class="col-md-6 col-sm-12 col-xs-12">
-                    <h6 class="my-2">Поставщик</h6>
-                    <input id="providerFullName" class="form-control fullname" type="text"
-                           name="providerFullName" placeholder="ФИО">
-                    <input id="providerPhoneNumber" class="form-control mt-2" type="tel"
-                           name="providerPhoneNumber" placeholder="+7 (800) 800-80-80">
-                    <input id="providerEmail" class="form-control mt-2 email" type="email"
-                           name="providerEmail" placeholder="Электронная почта">
-                    <input id="providerCompany" class="form-control mt-2 p-party" type="text"
-                           name="providerCompany" placeholder="Название организации">
-                    <input id="providerCompanyFullName" class="form-control mt-2 p-name-full" type="text"
-                           name="providerCompanyFullName" placeholder="Полное наименование">
-                    <input id="providerCompanyInnKpp" class="form-control mt-2 p-inn-kpp" type="text"
-                           name="providerCompanyInnKpp" placeholder="ИНН / КПП">
-                    <input id="providerCompanyAddress" class="form-control mt-2 p-company-address" type="text"
-                           name="providerCompanyAddress" placeholder="Адрес">
-                </div>
+            <div class="col-md-6 col-sm-12 col-xs-12">
+                <h5 class="my-2">Клиент</h5>
+                <input id="clientFullName" class="form-control fullname" type="text"
+                       name="clientFullName" placeholder="ФИО">
+                <input id="clientPhoneNumber" class="form-control mt-2" type="tel"
+                       name="clientPhoneNumber" placeholder="+7 (800) 800-80-80">
+                <input id="clientEmail" class="form-control mt-2 email" type="email" name="clientEmail"
+                       placeholder="Электронная почта">
+                <input id="clientCompany" class="form-control mt-2 c-party" type="text"
+                       name="clientCompany" placeholder="Название организации">
+                <input id="clientCompanyFullName" class="form-control mt-2 c-name-full" type="text"
+                       name="clientCompanyFullName" placeholder="Полное наименование">
+                <input id="clientCompanyInnKpp" class="form-control mt-2 c-inn-kpp" type="text"
+                       name="clientCompanyInnKpp" placeholder="ИНН / КПП">
+                <input id="clientCompanyAddress" class="form-control mt-2 c-company-address" type="text"
+                       name="clientCompanyAddress" placeholder="Адрес">
+            </div>
+            <div class="col-md-6 col-sm-12 col-xs-12">
+                <h5 class="my-2">Поставщик</h5>
+                <input id="providerFullName" class="form-control fullname" type="text"
+                       name="providerFullName" placeholder="ФИО">
+                <input id="providerPhoneNumber" class="form-control mt-2" type="tel"
+                       name="providerPhoneNumber" placeholder="+7 (800) 800-80-80">
+                <input id="providerEmail" class="form-control mt-2 email" type="email"
+                       name="providerEmail" placeholder="Электронная почта">
+                <input id="providerCompany" class="form-control mt-2 p-party" type="text"
+                       name="providerCompany" placeholder="Название организации">
+                <input id="providerCompanyFullName" class="form-control mt-2 p-name-full" type="text"
+                       name="providerCompanyFullName" placeholder="Полное наименование">
+                <input id="providerCompanyInnKpp" class="form-control mt-2 p-inn-kpp" type="text"
+                       name="providerCompanyInnKpp" placeholder="ИНН / КПП">
+                <input id="providerCompanyAddress" class="form-control mt-2 p-company-address" type="text"
+                       name="providerCompanyAddress" placeholder="Адрес">
+            </div>
             <!--    page's center        -->
-            <div class=" col-md-6 col-sm-12 col-xs-12 ">
+            <div class=" col-md-6 col-sm-12 col-xs-12">
                 <h4 class="text-center my-2">Введите адрес доставки</h4>
-                <input id="deliveryAddress" class="form-control delivery"
-                       type="text" name="deliveryAddress" placeholder="Адрес доставки">
-                <div class="row justify-content-center my-3">
-                    <div id="map"></div>
-                    <!--    TODO https://yandex.ru/dev/maps/jsbox/2.1/input_validation      -->
+                <div class="row">
+                    <div class="col-md-9 col-sm-12 col-xs-12">
+                        <input id="deliveryAddress" class="form-control delivery" type="text" name="deliveryAddress"
+                               placeholder="Адрес доставки">
+                    </div>
+                    <div class="col-md-3 col-sm-12 col-xs-12 d-grid">
+                        <button class="btn btn-outline-dark" type="button" id="deliveryButton">Проверить</button>
+                    </div>
                 </div>
-                <div class="row mb-2">
-                    <div class="col-md-12 col-sm-12 col-xs-12 mt-3">
-                        <h4 class="text-center">Выберете шаблон документа</h4>
-                        <p>Шаблон можно посмотреть, кликнув на него, выберете один из доступных.</p>
-                        <p class="note">(Позже появится возможность загрузки собственного шаблона.)</p>
-                        <div id="form-check" class="mt-3">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions"
-                                   value="template1.docx" checked>
-                            <a href="templatesPDF/template1.pdf" class="text-decoration-none" target="_blank">📃
-                                Договор</a>
-                            <input class="form-check-input ms-3" type="radio" name="inlineRadioOptions" id="items"
-                                   value="template1.docx">
-                            <a href="templatesPDF/2.pdf" class="text-decoration-none" target="_blank">📃 Договор с
-                                приложением</a>
-                            <div class="accordion items l-2 mt-3">
-                                <div class="accordion-item">
-                                    <h6 class="accordion-header">
-                                        <button class="accordion-button collapsed" type="button"
-                                                data-bs-toggle="collapse"
-                                                data-bs-target="#collapseItem"
-                                                aria-expanded="false" aria-controls="collapseExample">
-                                            Перечень поставляемых товаров
-                                            <br>
-                                        </button>
-                                    </h6>
-                                </div>
-                                <div class="collapse mt-3" id="collapseItem">
-                                    <div class="row" id="add">
-                                        <div class="col-md-1 col-sm-12 col-xs-12 mt-1 d-grid">
-                                            <button class="btn btn-outline-dark icon-plus" id="addButton"
-                                                    type="button"></button>
-                                        </div>
-                                    </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <label class="note ms-2" id="map-msg"></label>
+                        <div class="row justify-content-center my-3">
+                            <div id="map"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-sm-12 col-xs-12">
+                <h4 class="text-center my-2">Выберете шаблон документа</h4>
+                <p>Шаблон можно посмотреть, кликнув на него, выберете один из доступных.</p>
+                <p class="note">(Позже появится возможность загрузки собственного шаблона.)</p>
+                <div id="form-check" class="mt-3">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions"
+                           value="template1.docx" checked>
+                    <a href="templatesPDF/template1.pdf" class="text-decoration-none" target="_blank">📃
+                        Договор</a>
+                    <input class="form-check-input ms-3" type="radio" name="inlineRadioOptions" id="items"
+                           value="template1.docx">
+                    <a href="templatesPDF/2.pdf" class="text-decoration-none" target="_blank">📃 Договор с
+                        приложением</a>
+                    <div class="accordion items l-2 mt-3">
+                        <div class="accordion-item">
+                            <h6 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button"
+                                        data-bs-toggle="collapse"
+                                        data-bs-target="#collapseItem"
+                                        aria-expanded="false" aria-controls="collapseExample">
+                                    Перечень поставляемых товаров
+                                </button>
+                            </h6>
+                        </div>
+                        <div class="collapse mt-3" id="collapseItem">
+                            <div class="row" id="add">
+                                <div class="col-md-1 col-sm-12 col-xs-12 mt-1">
+                                    <button class="btn btn-outline-dark icon-plus px-2" id="addButton"
+                                            type="button"></button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="row my-3">
-                    <div class="col-md-6 col-sm-12 col-xs-12 text-center">
-                        <label class="error-label" id="error-label"></label>
+                    <div class="col-md-6 col-sm-12 col-xs-12">
+                        <label class="note ms-2" id="download-msg"></label>
                     </div>
                     <div class="col-md-6 col-sm-12 col-xs-12 d-grid">
                         <button class="btn btn-dark" type="submit">Скачать договор
@@ -136,7 +147,7 @@
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" type="text/javascript"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/suggestions-jquery@21.12.0/dist/js/jquery.suggestions.min.js"
         type="text/javascript"></script>
-<script defer src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=65d6ec16-9019-4962-87b4-df13e31f3236"
+<script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=65d6ec16-9019-4962-87b4-df13e31f3236"
         type="text/javascript"></script>
 <script defer src="js/bootstrap.min.js" type="text/javascript"></script>
 <script defer src="js/map.js" type="text/javascript"></script>

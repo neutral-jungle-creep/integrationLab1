@@ -26,7 +26,7 @@ type UserRequest struct {
 		Name       string  `json:"itemName" binding:"required" validate:"required"`
 		Quantity   uint    `json:"quantity" binding:"required"`
 		Price      float32 `json:"price" binding:"required"`
-	} `json:"items" binding:"required"`
+	} `json:"items"`
 }
 
 type Response struct {
