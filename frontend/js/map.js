@@ -6,6 +6,7 @@ const defaultZoom = 11;
 const deliveryButton = document.getElementById("deliveryButton");
 const mapMsg = document.getElementById("map-msg")
 const deliveryAddr = document.getElementById("deliveryAddress");
+let confirmAddr;
 
 ymaps.ready(init);
 
@@ -75,6 +76,7 @@ function showResult(obj) {
     deliveryAddr.classList.remove("error");
     mapMsg.classList.remove("error-label");
     mapMsg.textContent = "Адрес подтвержден";
+    confirmAddr = deliveryAddr.value
 
     let mapState = ymaps.util.bounds.getCenterAndZoom(
         obj.properties.get('boundedBy'),

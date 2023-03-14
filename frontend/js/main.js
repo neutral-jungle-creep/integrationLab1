@@ -54,8 +54,11 @@ function validation(form) {
         }
     }
 
-    if (mapMsg.classList.contains("error-label") || deliveryAddr.value === "") {
-        deliveryAddr.classList.add("error");
+    // я не стала выносить текстовые значения mapMsg в константы потому, что как мне
+    // кажется, так проще читать код. Или нет?
+    if (mapMsg.textContent !== "Адрес подтвержден" || deliveryAddr.value === ""
+        || (mapMsg.textContent === "Адрес подтвержден" && confirmAddr !== deliveryAddr.value)) {
+        showError("Подтвердите адрес")
         validRes = false;
     } else {
         deliveryAddr.classList.remove("error");
@@ -162,7 +165,6 @@ function createItemRow(number) {
 }
 
 function createItemCols(number) {
-    // TODO add button for del item row
     return '<div class="col-md-1 col-sm-12 col-xs-12 mt-1 d-grid">' +
         '<button class="btn btn-outline-dark icon-minus px-2" id="delButton" type="button"></button>' +
         '</div>' +
@@ -176,7 +178,7 @@ function createItemCols(number) {
         '<input name="quantity' + (number) + '" class="form-control" type="number" placeholder="Кол-во">' +
         '</div>' +
         '<div class="col-md-3 col-sm-12 col-xs-12 mt-1">' +
-        '<input name="price' + (number) + '" class="form-control" type="number" placeholder="Цена 1шт.">' +
+        '<input name="price' + (number) + '" class="form-control" type="text" placeholder="Цена 1шт.">' +
         '</div>';
 
 }
