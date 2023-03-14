@@ -32,6 +32,7 @@ func (h *Handler) submitCompletedDoc(c *gin.Context) {
 		errorResponse(c, http.StatusBadRequest, err.Error())
 		return
 	}
+	h.log.Infof("user input data --- [%v]", input)
 
 	if err := h.validateUserRequest(input); err != nil {
 		h.log.Error(err.Error())
@@ -63,5 +64,6 @@ func (h *Handler) validateUserRequest(input *domain.UserRequest) error {
 
 func (h *Handler) getDocFile(c *gin.Context) {
 	filename := c.Param("filename")
-	c.File("./docs/output" + filename)
+	h.log.Info(filename)
+	c.File("./docs/output/" + filename)
 }

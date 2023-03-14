@@ -21,12 +21,14 @@ type UserRequest struct {
 
 	DeliveryAddress string `json:"deliveryAddress" binding:"required" validate:"max=250"`
 
-	Items []struct {
-		VendorCode string  `json:"vendorCode" binding:"required" validate:"alphanum,max=30"`
-		Name       string  `json:"itemName" binding:"required" validate:"required"`
-		Quantity   uint    `json:"quantity" binding:"required"`
-		Price      float32 `json:"price" binding:"required"`
-	} `json:"items"`
+	Items []Items `json:"items"`
+}
+
+type Items struct {
+	VendorCode string  `json:"vendorCode" binding:"required" validate:"alphanum,max=30"`
+	Name       string  `json:"itemName" binding:"required" validate:"required"`
+	Quantity   uint    `json:"quantity" binding:"required"`
+	Price      float64 `json:"price" binding:"required"`
 }
 
 type Response struct {
