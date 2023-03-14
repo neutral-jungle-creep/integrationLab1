@@ -5,7 +5,6 @@ import (
 	"IntegrationLab1/internal/domain"
 	"fmt"
 	"github.com/lukasjarosch/go-docx"
-	"math"
 	"math/rand"
 	"strconv"
 	"strings"
@@ -106,13 +105,14 @@ func addItemsToMap(replMap docx.PlaceholderMap, items []domain.Items) {
 
 	for i := 0; i < len(items); i++ {
 		index := strconv.Itoa(i)
-		total := math.Round(items[i].Price * float64(items[i].Quantity))
+		total := items[i].Price * float64(items[i].Quantity)
 		totalPrice += total
 
-		replMap["vendor-code-"+index] = items[i].VendorCode
-		replMap["item-name-"+index] = items[i].Name
+		replMap["vendor-code-"+index] = strings.TrimSpace(items[i].VendorCode)
+		replMap["item-name-"+index] = strings.TrimSpace(items[i].Name)
 		replMap["quantity-"+index] = items[i].Quantity
 		replMap["price-"+index] = fmt.Sprintf("%.2f %s", items[i].Price, "р.")
 		replMap["total-"+index] = fmt.Sprintf("%.2f %s", total, "р.")
 	}
+	replMap["total-price"] = fmt.Sprintf("%.2f %s", totalPrice, "p.")
 }
