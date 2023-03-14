@@ -71,12 +71,12 @@ function newDocumentRequest(filePath) {
         try {
             const response = await fetch(urlGetDoc, {
                 method: "POST", body: JSON.stringify(body)
-            })
+            });
             if (response.status === 200) {
-                let res = await response.json()
+                let res = await response.json();
                 downloadFile(res.fileName);
                 console.log(res.fileName);
-                downloadMsg.textContent = "Договор успешно сгенерирован"
+                downloadMsg.textContent = "Договор успешно сгенерирован";
             } else {
                 showDownloadError("Заполните поля формы корректными данными");
             }
@@ -85,7 +85,7 @@ function newDocumentRequest(filePath) {
         }
     }
 
-    sendFormData()
+    sendFormData();
 }
 
 function makeBody(filePath) {
@@ -118,7 +118,7 @@ function makeBody(filePath) {
 
 function getItems(formData) {
     const inputForms = itemsForm.getElementsByClassName("input-item");
-    const items = []
+    const items = [];
 
     for (let i = 0; i < inputForms.length; i++) {
         items[i] = {
@@ -128,7 +128,7 @@ function getItems(formData) {
             price: parseInt(formData.get("price" + i)),
         }
     }
-    return items
+    return items;
 }
 
 async function downloadFile(filename) {
@@ -152,12 +152,24 @@ addButton.addEventListener("click", () => {
     document.getElementById("inp" + (num)).innerHTML = createItemCols(num);
 })
 
+
+function createItemRow(number) {
+    const inpRow = document.createElement("div");
+    inpRow.classList.add("row");
+    inpRow.classList.add("input-item");
+    inpRow.id = "inp" + number;
+    return inpRow;
+}
+
 function createItemCols(number) {
     // TODO add button for del item row
-    return '<div class="col-md-2 col-sm-12 col-xs-12 mt-1">' +
+    return '<div class="col-md-1 col-sm-12 col-xs-12 mt-1 d-grid">' +
+        '<button class="btn btn-outline-dark icon-minus px-2" id="delButton" type="button"></button>' +
+        '</div>' +
+        '<div class="col-md-2 col-sm-12 col-xs-12 mt-1">' +
         '<input name="vendorCode' + (number) + '" class="form-control" type="text" placeholder="Артикул">' +
         '</div>' +
-        '<div class="col-md-5 col-sm-12 col-xs-12 mt-1">' +
+        '<div class="col-md-4 col-sm-12 col-xs-12 mt-1">' +
         '<input name="itemName' + (number) + '" class="form-control" type="text" placeholder="Наименование">' +
         '</div>' +
         '<div class="col-md-2 col-sm-12 col-xs-12 mt-1">' +
@@ -165,14 +177,13 @@ function createItemCols(number) {
         '</div>' +
         '<div class="col-md-3 col-sm-12 col-xs-12 mt-1">' +
         '<input name="price' + (number) + '" class="form-control" type="number" placeholder="Цена 1шт.">' +
-        '</div>'
+        '</div>';
 
 }
 
-function createItemRow(number) {
-    const inpRow = document.createElement("div")
-    inpRow.classList.add("row")
-    inpRow.classList.add("input-item")
-    inpRow.id = "inp" + number
-    return inpRow
-}
+itemsForm.addEventListener("click", (event)=> {
+    const btn = event.target.closest('#delButton');
+    if (btn) {
+        btn.closest('.input-item').remove();
+    }
+});
