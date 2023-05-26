@@ -20,7 +20,7 @@ form.addEventListener("submit", (event) => {
         downloadMsg.textContent = "";
         newDocumentRequest(filePath);
     } else {
-       showDownloadError("Необходимо заполнить все поля");
+        showDownloadError("Необходимо заполнить все поля");
     }
 })
 
@@ -183,7 +183,7 @@ function createItemCols(number) {
 
 }
 
-itemsForm.addEventListener("click", (event)=> {
+itemsForm.addEventListener("click", (event) => {
     const btn = event.target.closest('#delButton');
     if (btn) {
         btn.closest('.input-item').remove();

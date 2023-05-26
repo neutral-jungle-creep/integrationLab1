@@ -1,4 +1,4 @@
-const token = "8e70dfbc82b96c8bd76f8f85b87136b885dedd1b"
+const token = "token"
 
 function showSuggestion(suggestion) {
   console.log(suggestion);
